@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <form>
+            <label>
+                User name:
+                <input type="text" name="userName" id="user-name">
+            </label>
+            <label>
+                Password:
+                <input type="password" name="password" id="password">
+            </label>
+            <input type="submit" value="Log In">
+        </form>
+        <div class="feedback"></div>
+        <script>
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
+                }).then((response) => {
+                    if (!response.ok) {
+                        throw new Error('log in failed!');
+                    }
+                    return response.json();
+                }).then((body) => {
+                    const feedback = document.querySelector('.feedback');
+                    feedback.classList.add('visible');
+                    feedback.classList.add('success');
+                    feedback.classList.remove('failure');
+                    feedback.innerHTML = `Hello ${body.firstName} ${body.lastName}! ${body.flag || ""}`;
+                }).catch((err) => {
+                    console.error(err);
+                    const feedback = document.querySelector('.feedback');
+                    feedback.classList.add('visible');
+                    feedback.classList.add('failure');
+                    feedback.classList.remove('success');
+                    feedback.innerHTML = err;
+                });
+            }
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', handleSubmit);
+        </script>
+    </body>
+</html>

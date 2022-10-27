@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <form>
+            <label>
+                User name:
+                <input type="text" name="userName" id="user-name">
+            </label>
+            <label>
+                First name:
+                <input type="text" name="firstName" id="first-name">
+            </label>
+            <label>
+                Last name:
+                <input type="text" name="lastName" id="last-name">
+            </label>
+            <label>
+                Password:
+                <input type="password" name="password" id="password">
+            </label>
+            <input type="submit" value="Sign Up">
+        </form>
+        <div class="feedback"></div>
+        <script>
+            function filterFalsy(obj) {
+                return Object.keys(obj).reduce((acc, key) => {
+                    if (obj[key]) {
+                        acc[key] = obj[key];
+                    }
+
+                    return acc;
+                }, {});
+            }
+
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(filterFalsy(Object.fromEntries(new FormData(event.target)))),
+                }).then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Sign up failed!');
+                    }
+                    window.location.pathname = '/login';
+                }).catch((err) => {
+                    console.error(err);
+                    const feedback = document.querySelector('.feedback');
+                    feedback.classList.add('visible');
+                    feedback.classList.add('failure');
+                    feedback.innerHTML = err;
+                });
+            }
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', handleSubmit);
+        </script>
+    </body>
+</html>
