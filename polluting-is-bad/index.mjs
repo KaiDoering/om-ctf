@@ -1,5 +1,6 @@
 import express from 'express';
 import _ from 'lodash';
+import { middleware } from 'sanitize';
 import { get, set } from './db.mjs';
 
 const PORT = 80;
@@ -7,6 +8,7 @@ const PORT = 80;
 const app = express();
 
 app.use(express.json());
+app.use(middleware);
 
 app.get('/health', (req, res) => res.sendStatus(200));
 app.post('/api/signup', (req, res) => {
@@ -37,7 +39,7 @@ app.post('/api/login', (req, res) => {
         return;
     }
     const user = get(req.body.userName);
-    if (user?.password !== req.body.password) {
+    if (user.password !== req.body.password) {
         res.sendStatus(401);
         return;
     }
