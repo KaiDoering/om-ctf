@@ -35,7 +35,9 @@
                     feedback.classList.add('visible');
                     feedback.classList.add('success');
                     feedback.classList.remove('failure');
-                    feedback.innerHTML = `Hello ${body.firstName} ${body.lastName}! ${body.flag || ""}`;
+                    feedback.appendChild(
+                        document.createTextNode(`Hello ${body.firstName} ${body.lastName}! ${body.flag || ""}`),
+                    );
                 }).catch((err) => {
                     console.error(err);
                     const feedback = document.querySelector('.feedback');
