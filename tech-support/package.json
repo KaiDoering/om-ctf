@@ -1,0 +1,25 @@
+{
+  "name": "tech-support",
+  "version": "1.0.0",
+  "description": "PoC for XSS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaiDoering/om-ctf.git"
+  },
+  "author": "Kai Doering",
+  "bugs": {
+    "url": "https://github.com/KaiDoering/om-ctf/issues"
+  },
+  "homepage": "https://github.com/KaiDoering/om-ctf#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "puppeteer": "^19.2.1"
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <div class="header">
+            <img src="/customer-service.png" width="80" height="80">
+            <h1>J̶Gira</h1>
+        </div>
+        <h2>Open a ticket - our support will look at it asap:</h2>
+        <form>
+            <label>
+                Subject:
+                <input type="text" name="subject" id="subject">
+            </label>
+            <label>
+                Ticket description:
+                <textarea name="description" id="description"></textarea>
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+        <div class="feedback"></div>
+        <script>
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                fetch('/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
+                }).then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Submit failed!');
+                    }
+                    return response.json();
+                }).then((body) => {
+                    const feedback = document.querySelector('.feedback');
+                    feedback.classList.add('visible');
+                    feedback.classList.add('success');
+                    feedback.classList.remove('failure');
+                    feedback.innerHTML = `Ticket was submitted! You can view your ticket <a href="/ticket/${body.id}">here</>`;
+                }).catch((err) => {
+                    console.error(err);
+                    const feedback = document.querySelector('.feedback');
+                    feedback.classList.add('visible');
+                    feedback.classList.add('failure');
+                    feedback.classList.remove('success');
+                    feedback.innerHTML = err;
+                });
+            }
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', handleSubmit);
+        </script>
+    </body>
+</html>
