@@ -1,8 +1,9 @@
 import express from 'express';
 import _ from 'lodash';
+
 import { get, set } from './db.mjs';
 
-const PORT = 80;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
