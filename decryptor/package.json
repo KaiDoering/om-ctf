@@ -1,0 +1,23 @@
+{
+  "name": "decrypt0r",
+  "version": "1.0.0",
+  "description": "Obfuscation is not security",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaiDoering/om-ctf.git"
+  },
+  "author": "Kai Doering",
+  "bugs": {
+    "url": "https://github.com/KaiDoering/om-ctf/issues"
+  },
+  "homepage": "https://github.com/KaiDoering/om-ctf#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
