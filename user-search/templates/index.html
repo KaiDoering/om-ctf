@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Phonebook</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    </head>
+    <body>
+        <h1>Phonebook</h1>
+        <form method="post">
+            <input type="text" name="q" size=64 placeholder="Name">
+            <input type="submit" value="Search">
+        </form>
+        {% if no_result %}
+        <br/>
+        <div class="feedback">
+            No results for: <b>{{ query }}</b>
+        </div>
+        {% endif %}
+        {% if err %}
+        <br/>
+        <div class="feedback failure">
+            Something went wrong: <b>{{ err }}</b>
+        </div>
+        {% endif %}
+        {% if result %}
+        <br/>
+        <table class="feedback">
+            <thead>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+            </thead>
+            <tbody>
+                {% for entry in result %}
+                <tr>
+                    <td>{{ entry[0] }}</td>
+                    <td>{{ entry[1] }}</td>
+                    <td>{{ entry[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </div>
+        {% endif %}
+    </body>
+</html>
