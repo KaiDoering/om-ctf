@@ -11,4 +11,6 @@ COPY package-lock.json .
 
 RUN npm ci
 
+USER node
+
 CMD [ "npm", "start" ]
