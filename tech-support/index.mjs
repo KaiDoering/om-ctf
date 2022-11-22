@@ -32,26 +32,34 @@ app.post('/api/submit', (req, res) => {
     set(id, req.body.subject, req.body.description);
 
     (async () => {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+        try {
+            const browser = await puppeteer.launch({
+                executablePath: '/usr/bin/google-chrome',
+                args: ['--no-sandbox'],
+            });
+            const page = await browser.newPage();
 
-        await page.setCookie({
-            'name': 'secret-token',
-            'value': 'CTF{hav3_you_7ried_turning_1t_off_and_0n_again}',
-            'domain': 'localhost',
-            'path': '/',
-            'max-age': 3600000,
-            'size': 47,
-            'httpOnly': false,
-            'secure': false,
-            'session': false,
-            'sameParty': false,
-            'sourceScheme': 'NonSecure',
-            'sourcePort': PORT,
-        });
-        await page.goto(`http://localhost:${PORT}/ticket/${id}`);
+            await page.setCookie({
+                'name': 'secret-token',
+                'value': 'CTF{hav3_you_7ried_turning_1t_off_and_0n_again}',
+                'domain': 'localhost',
+                'path': '/',
+                'max-age': 3600000,
+                'size': 47,
+                'httpOnly': false,
+                'secure': false,
+                'session': false,
+                'sameParty': false,
+                'sourceScheme': 'NonSecure',
+                'sourcePort': PORT,
+            });
+            await page.goto(`http://localhost:${PORT}/ticket/${id}`);
+            await new Promise(resolve => setTimeout(resolve, 500));
 
-        await browser.close();
+            await browser.close();
+        } catch (err) {
+            console.log(err);
+        }
     })();
 
     return res.status(200).json({ id });
