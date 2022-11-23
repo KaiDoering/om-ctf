@@ -2,11 +2,11 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div class="header">
-            <img src="/customer-service.png" width="80" height="80">
+            <img src="customer-service.png" width="80" height="80">
             <h1>J̶Gira</h1>
         </div>
         <h2>Open a ticket - our support will look at it asap:</h2>
@@ -26,7 +26,7 @@
             function handleSubmit(event) {
                 event.preventDefault();
 
-                fetch('/api/submit', {
+                fetch('api/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
