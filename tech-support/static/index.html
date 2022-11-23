@@ -40,7 +40,7 @@
                     feedback.classList.add('visible');
                     feedback.classList.add('success');
                     feedback.classList.remove('failure');
-                    feedback.innerHTML = `Ticket was submitted! You can view your ticket <a href="/ticket/${body.id}">here</>`;
+                    feedback.innerHTML = `Ticket was submitted! You can view your ticket <a href="ticket/${body.id}">here</>`;
                 }).catch((err) => {
                     console.error(err);
                     const feedback = document.querySelector('.feedback');
